@@ -155,5 +155,16 @@ def instantiate_poker_game(info: [[str]]):
             players_busted[player] = noOne
     return Game(players, players_busted, placements)
 
+def delete_game(game_id: str):
+    execute_sql("DELETE FROM poker_game WHERE game_id = :game_id", {"game_id": game_id})
+
+def revert_game(game_id: str):
+    query = "SELECT name, elo_change FROM player_poker_game_info WHERE game_id = :game_id"
+    result = execute_sql(query, {"game_id": game_id}, fetch=True).fetchall()
+    # Delete the game from the database
+    delete_game(game_id)
+    for row in result:
+        update_player_rating(row[0], get_player_rating(row[0]) - row[1])
+
 
 

@@ -6,7 +6,7 @@ class Game(object):
     players : [Player]
     players_busted_by : {Player: Player}
     placements : {Player: int}
-    K_constant = 48
+    K_constant = 72
     bust_bonus = 0.15
     
     def __init__(self, players = [], players_busted_by = {}, placements = {}):
@@ -29,7 +29,7 @@ class Game(object):
         return player.rating + self.calculate_elo_change(player)
         
     def get_total_number_of_players_busted(self, player) -> int:
-        return sum([1 for key in self.players_busted_by if self.players_busted_by[key] == player])
+        return sum([1 for key in self.players_busted_by if self.players_busted_by[key].name == player.name])
         
     
     def get_mean_elo(self) -> float: 

@@ -3,30 +3,29 @@ from Player import Player
 from PokerEloCalc import Game
 import DatabaseService
 
-# Placeholder for player who was not busted by anyone
-noOne = Player("No One", 1000)
 
-# info = [[name, placement, busted_by]]
-# DatabaseService.reset_all_ratings()
-# DatabaseService.clear_all_games_records()
+def m():
+    # Placeholder for player who was not busted by anyone
+    noOne = Player("No One", 1000)
 
-poker_game = DatabaseService.instantiate_poker_game([["Kevin Wang", 1, "No One"], 
-                                                     ["Noe Teyssier", 2, "Kevin Wang"], 
-                                                     ["Andrew Chen", 3, "Noe Teyssier"],
-                                                     ["Krrish Shah", 4, "Andrew Chen"],
-                                                     ["Yuquan Zhou", 5, "Krrish Shah"],
-                                                     ])
+    # info = [[name, placement, busted_by]]
+    # DatabaseService.reset_all_ratings()
+    # DatabaseService.clear_all_games_records()
 
-
-
-for player in poker_game.players:
-    print(f"{player.name} | rating: {player.rating} -> {poker_game.calculate_new_elo(player)} | placement: {poker_game.get_placement(player)} ")
+    poker_game = DatabaseService.instantiate_poker_game([
+        ["Henry", 1, "No One"],
+    ["Kevin", 2, "Henry"],
+    ["Rory", 3, "Henry"],
+    ["Noe", 4, "Kevin"]
+    ])
 
 
 
-DatabaseService.test_connection()
-DatabaseService.record_poker_game(poker_game)
+    for player in poker_game.players:
+        print(f"{player.name.center(20)} | rating: {str(player.rating).ljust(7)} -> {str(poker_game.calculate_new_elo(player)).ljust(7)} | placement: {poker_game.get_placement(player)} | busted by: {poker_game.players_busted_by[player].name}")
 
-DatabaseService.display_leaderboard()
+    DatabaseService.record_poker_game(poker_game)
+    DatabaseService.display_leaderboard()
 
+m()
 
