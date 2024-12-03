@@ -166,5 +166,22 @@ def revert_game(game_id: str):
     for row in result:
         update_player_rating(row[0], get_player_rating(row[0]) - row[1])
 
+def get_average_placement(name: str) -> float:
+    query = "SELECT AVG(placement) FROM player_poker_game_info WHERE name = :name"
+    result = execute_sql(query, {"name": name}, fetch=True).scalar()
+    return result
+
+def get_all_players_average_placement() -> dict:
+    query = "SELECT name, AVG(placement) FROM player_poker_game_info GROUP BY name"
+    result = execute_sql(query, {}, fetch=True).fetchall()
+    
+    # Create the dictionary
+    unsorted_dict = {row[0]: row[1] for row in result}
+    
+    # Sort the dictionary by value and return a new dictionary
+    sorted_dict = {key: value for key, value in sorted(unsorted_dict.items(), key=lambda item: item[1])}
+    
+    return sorted_dict
+
 
 

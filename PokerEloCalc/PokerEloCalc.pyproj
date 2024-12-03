@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>9b906636-0a34-4f87-851d-13dd85920143</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TestingZone.py</StartupFile>
+    <StartupFile>Main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,8 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TestingZone.py" />
+    <Compile Include="Main.py" />
     <Compile Include="DatabaseService.py" />
+    <Compile Include="Uploader.py" />
     <Compile Include="Player.py" />
     <Compile Include="PokerEloCalc.py" />
   </ItemGroup>

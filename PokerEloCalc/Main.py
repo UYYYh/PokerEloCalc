@@ -1,23 +1,28 @@
+from distutils.command import upload
 from sqlite3 import DatabaseError
 from Player import Player
 from PokerEloCalc import Game
-import DatabaseService
+import DatabaseService, Uploader
 
 
-def m():
+def upload_game():
     # Placeholder for player who was not busted by anyone
     noOne = Player("No One", 1000)
 
-    # info = [[name, placement, busted_by]]
-    # DatabaseService.reset_all_ratings()
-    # DatabaseService.clear_all_games_records()
 
     poker_game = DatabaseService.instantiate_poker_game([
-        ["Henry", 1, "No One"],
-    ["Kevin", 2, "Henry"],
-    ["Rory", 3, "Henry"],
-    ["Noe", 4, "Kevin"]
-    ])
+    ["Leo", 1, "No One"],
+    ["Henry", 2, "Leo"],
+    ["Andrew", 3, "Henry"],
+    ["Joy", 4, "Henry"],
+    ["Dima", 5, "Andrew"],
+    ["Charis", 6, "Leo"],
+    ["Vlad", 7, "Henry"],
+    ["Kaka", 8, "Henry"],
+    ["Kevin", 9, "Henry"],
+    ["Nyron", 10, "Henry"],
+    ["Blake", 11, "Andrew"]
+])
 
 
 
@@ -26,6 +31,8 @@ def m():
 
     DatabaseService.record_poker_game(poker_game)
     DatabaseService.display_leaderboard()
+    
+Uploader.export_to_excel()
 
-m()
+
 
