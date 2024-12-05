@@ -143,10 +143,10 @@ def instantiate_poker_game(info: [[str]]):
     players_busted = {}
     placements = {}
     for player_info in info:
-        rating = get_player_rating(player_info[0])
-        player = Player(player_info[0], rating)
+        rating = get_player_rating(player_info[1])
+        player = Player(player_info[1], rating)
         players.append(player)
-        placements[player] = player_info[1]
+        placements[player] = player_info[0]
         if player_info[2] != None:
             busted_by_elo = get_player_rating(player_info[2])
             busted_by = Player(player_info[2], busted_by_elo)

@@ -5,24 +5,17 @@ from PokerEloCalc import Game
 import DatabaseService, Uploader
 
 
-def upload_game():
+def parse_result(results_string):
+    lines = [[index + 1] + line.split(" - busted by ") for index, line in enumerate(results_string.split("\n")[::-1])]
+    lines[0] += ["No One"]
+    return lines
+
+def upload_game(results_string):
     # Placeholder for player who was not busted by anyone
     noOne = Player("No One", 1000)
 
 
-    poker_game = DatabaseService.instantiate_poker_game([
-    ["Leo", 1, "No One"],
-    ["Henry", 2, "Leo"],
-    ["Andrew", 3, "Henry"],
-    ["Joy", 4, "Henry"],
-    ["Dima", 5, "Andrew"],
-    ["Charis", 6, "Leo"],
-    ["Vlad", 7, "Henry"],
-    ["Kaka", 8, "Henry"],
-    ["Kevin", 9, "Henry"],
-    ["Nyron", 10, "Henry"],
-    ["Blake", 11, "Andrew"]
-])
+    poker_game = DatabaseService.instantiate_poker_game(parse_result(results_string))
 
 
 
@@ -32,7 +25,19 @@ def upload_game():
     DatabaseService.record_poker_game(poker_game)
     DatabaseService.display_leaderboard()
     
-Uploader.export_to_excel()
+
+results = """Murad - busted by Kevin
+Dima - busted by Henry
+Kevin - busted by Henry
+William - busted by Henry
+Leo - busted by Joy
+Noe - busted by Henry
+Henry - busted by Joy
+Joy"""
+
+# upload_game(results)
+
+# Uploader.export_to_excel()
 
 
 
